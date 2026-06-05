@@ -1,0 +1,32 @@
+## .NET
+
+# Build output
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+.vs/
+
+# dotnet publish
+publish/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# Neovim
+*.swp
+*.swo
+.nvim/
+
+# OS
+Thumbs.db
+
+# Secrets / environment overrides
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json
