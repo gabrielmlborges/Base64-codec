@@ -1,4 +1,4 @@
-# base64-api
+# Base64-codec
 
 A minimal ASP.NET Core Web API (.NET 10) that implements Base64 encoding and decoding **from scratch** — no `System.Convert.ToBase64String`, no external libraries. The algorithm is hand-rolled at the bit level.
 
