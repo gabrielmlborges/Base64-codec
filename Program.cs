@@ -7,12 +7,27 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddValidation();
 
+string allowedOrigin = builder.Configuration["AllowedOrigin"] ?? "http://localhost:5170";
+string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
+    {
+        policy.WithOrigins(allowedOrigin)
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 long kestrelResquestStreamedMaxSizeBytes = builder.Configuration.GetValue<long>("kestrelResquestStreamedMaxSizeBytes", 52428800);
 long kestrelRequestMaxSizeBytes = builder.Configuration.GetValue<long>("RequestMaxSizeBytes", 2097152);
 
 builder.WebHost.ConfigureKestrel(options => options.Limits.MaxRequestBodySize = kestrelRequestMaxSizeBytes);
 
 var app = builder.Build();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.MapPost("/encode/text", (TextRequest request) =>
 {
